@@ -1,0 +1,4 @@
+phenny/*.py
+phenny/Makefile
+phenny/manifest
+phenny/modules/*.py
