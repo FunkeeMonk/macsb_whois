@@ -16,11 +16,11 @@ host = 'irc.freenode.net'
 owner = 'FunkeeMonk'
 
 # Directory to store all the data. Must be writable
-datadir = '/Users/funkeemonk/Desktop/IRC Bot'
+datadir = '/Users/funkeemonk/Projects/macsb_whois'
 
 # Channels for phenny to join 
 channels = [
-	'#macsb'
+	'#macsb','#macsb-chat'
 ]
 
 # Channels for phenny to join in test mode
