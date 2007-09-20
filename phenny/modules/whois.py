@@ -3,14 +3,14 @@
 import re, urllib, string
 import web
 from BeautifulSoup import BeautifulSoup
-import logging
+#import logging
 
-logger = logging.getLogger('macsb_whois')
-hdlr = logging.FileHandler('/Users/funkeemonk/Desktop/macsb_whois.log')
-formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
-hdlr.setFormatter(formatter)
-logger.addHandler(hdlr)
-logger.setLevel(logging.INFO)
+#logger = logging.getLogger('macsb_whois')
+#hdlr = logging.FileHandler('/Users/funkeemonk/Desktop/macsb_whois.log') # TODO: Don't hardcode this
+#formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+#hdlr.setFormatter(formatter)
+#logger.addHandler(hdlr)
+#logger.setLevel(logging.INFO)
 
 def remove_link_html(self, original):
 	if original == None:
@@ -41,7 +41,8 @@ def f_whois(self, origin, match, args):
 	s = web.get('http://macsb.ironcoder.org/wiki/WhoIsWho')
 #	s = open('/Users/funkeemonk/Desktop/IRC Bot/macsb.htm')
 
-	logger.info(origin.nick + ' requested information for ' + handle)
+	# Uncomment this to enable logging
+	#logger.info(origin.nick + ' requested information for ' + handle)
 	
 	soup = BeautifulSoup(s)
 
