@@ -25,11 +25,17 @@ def remove_link_html(self, original):
 def f_whois(self, origin, match, args): 
 	""".whois [ <handle> ] - Reveals who the person is in Real Life using the table at http://macsb.ironcoder.org/wiki/WhoIsWho ."""
 	
+	sendto = None
+	if origin.nick == origin.sender: #Private message
+		sendto = origin.nick
+	else:
+		sendto = origin.sender
+	
 	handle = string.split(args[0], " ")[1]
 	
 	if handle == 'macsb_whois':
-		self.msg(origin.nick, 'Hi, i\'m the #macsb whois robot! I grab my data from http://macsb.ironcoder.org/wiki/WhoIsWho , so if you\'re a Mac small business developer, be sure to add your information on that page.')
-		self.msg(origin.nick, 'I\'m created by FunkeeMonk, so please send feedback regarding me to him. You can also find out more about my creator at http://www.funkeemonk.com/blog')
+		self.msg(sendto, 'Hi, i\'m the #macsb whois robot! I grab my data from http://macsb.ironcoder.org/wiki/WhoIsWho , so if you\'re a Mac small business developer, be sure to add your information on that page.')
+		self.msg(sendto, 'I\'m created by FunkeeMonk, so please send feedback regarding me to him. You can also find out more about my creator at http://www.funkeemonk.com/blog')
 		return
 		
 	s = web.get('http://macsb.ironcoder.org/wiki/WhoIsWho')
@@ -84,18 +90,13 @@ def f_whois(self, origin, match, args):
 					
 				if url:
 					msg = msg + ' - ' + url
-					
-				if origin.nick == origin.sender: #Private message
-					self.msg(origin.nick, msg)
-				else:
-					self.msg(origin.sender, msg)
+				
+				self.msg(sendto, msg)
 
 				return
 #				print msg
-	if origin.nick == origin.sender: #Private message
-		self.msg(origin.nick, 'Can\'t find information for \'' + handle + '\' at ' + 'http://macsb.ironcoder.org/wiki/WhoIsWho')
-	else:
-		self.msg(origin.sender, 'Can\'t find information for \'' + handle + '\' at ' + 'http://macsb.ironcoder.org/wiki/WhoIsWho')
+
+	self.msg(sendto, 'Can\'t find information for \'' + handle + '\' at ' + 'http://macsb.ironcoder.org/wiki/WhoIsWho')
 
 f_whois.rule = (['whois', 'who'], r'(\w+)')
 f_whois.thread = True
