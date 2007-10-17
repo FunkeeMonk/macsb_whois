@@ -18,6 +18,9 @@ owner = 'FunkeeMonk'
 # Directory to store all the data. Must be writable
 datadir = '/Users/funkeemonk/Projects/macsb_whois'
 
+# Directory of where the program lives
+progdir = '/Users/funkeemonk/Projects/macsb_whois/phenny'
+
 # Channels for phenny to join 
 channels = [
 	'#macsb','#macsb-chat'

@@ -8,8 +8,6 @@ About: http://inamidst.com/phenny/
 import sys, os, re, time, threading, optparse
 import irc
 
-home = os.getcwd()
-
 if sys.version_info < (2, 4): 
    from sets import Set as set
    def sorted(seq): 
@@ -42,7 +40,7 @@ class Phenny(irc.Bot):
       # [02:05] <sbp> I... wow, you're a phenny poweruser
 
       modules = []
-      moduledir = os.path.join(home, 'modules')
+      moduledir = os.path.join(progdir, 'modules')
       for filename in sorted(os.listdir(moduledir)): 
          if filename.endswith('.py') and not filename.startswith('_'): 
             name, ext = os.path.splitext(os.path.basename(filename))
@@ -260,9 +258,15 @@ def main(argv=None):
 
    import config
    global datadir
+   global progdir
 
    nick = options.nick or config.nick
    datadir = options.data or config.datadir
+   progdir = config.progdir
+
+   if not os.path.isdir(progdir):
+      raise IOError("%s is not a directory" % progdir)
+
    if not os.path.isdir(datadir): 
       raise IOError("%s is not a directory" % datadir)
 
