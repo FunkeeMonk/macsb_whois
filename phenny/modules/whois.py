@@ -38,8 +38,8 @@ def f_whois(self, origin, match, args):
 		self.msg(sendto, 'I\'m created by FunkeeMonk, so please send feedback regarding me to him. You can also find out more about my creator at http://www.funkeemonk.com/blog')
 		return
 		
-	s = web.get('http://macsb.ironcoder.org/wiki/WhoIsWho')
-#	s = open('/Users/funkeemonk/Desktop/IRC Bot/macsb.htm')
+#	s = web.get('http://macsb.ironcoder.org/wiki/WhoIsWho')
+	s = open('/Users/funkeemonk/Projects/macsb_whois/macsb.htm')
 
 	# Uncomment this to enable logging
 	#logger.info(origin.nick + ' requested information for ' + handle)
