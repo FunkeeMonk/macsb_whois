@@ -23,7 +23,7 @@ class Origin(object):
       self.sender = mappings.get(target, target)
 
 class Bot(asynchat.async_chat): 
-   def __init__(self, nick, channels): 
+   def __init__(self, nick, password, channels): 
       asynchat.async_chat.__init__(self)
       self.set_terminator('\r\n')
       self.buffer = ''
@@ -31,6 +31,8 @@ class Bot(asynchat.async_chat):
       self.nick = nick
       self.user = nick
       self.name = nick
+
+      self.password = password
 
       self.verbose = True
       self.channels = channels or []
@@ -83,7 +85,7 @@ class Bot(asynchat.async_chat):
       if args[0] == 'PING': 
          self.write(('PONG', text))
       elif args[0] == '251': 
-         self.msg('NickServ', 'IDENTIFY macsb_rocks')
+         self.msg('NickServ', 'IDENTIFY ' + self.password)
          # Vanilla and ircu/asuka ircds at least seem to require this
          # Cf. http://swhack.com/logs/2005-12-05#T19-32-36
          for channel in self.channels: 

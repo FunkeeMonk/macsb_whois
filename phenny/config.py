@@ -8,6 +8,9 @@ About: http://inamidst.com/phenny/
 # Default nickname for phenny
 nick = 'macsb_whois'
 
+# NICKSERV password
+password = 'macsb_rocks'
+
 # Server to run phenny on
 host = 'irc.freenode.net'
 

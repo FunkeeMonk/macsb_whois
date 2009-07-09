@@ -18,13 +18,13 @@ if sys.version_info < (2, 4):
    print >> sys.stderr, msg
 
 class Phenny(irc.Bot): 
-   def __init__(self, nick, channels, protect=False): 
+   def __init__(self, nick, password, channels, protect=False): 
       if ('#inamidst' in channels) and (not nick in ('phenny', 'phennytest')): 
          msg = "Error: Don't forget to edit config.py with your own settings!" 
          print >> sys.stderr, msg
          sys.exit(1)
 
-      irc.Bot.__init__(self, nick, channels)
+      irc.Bot.__init__(self, nick, password, channels)
       self.protect = protect
       self.initialize()
 
@@ -238,14 +238,16 @@ def doubleFork():
       raise OSError("fork #2 failed: %d (%s)" % (e.errno, e.strerror))
    return True
 
-def run(host, nick, channels, protect): 
-   phenny = Phenny(nick, channels=channels, protect=protect)
+def run(host, nick, password, channels, protect): 
+   phenny = Phenny(nick, password, channels=channels, protect=protect)
    phenny.run(host)
 
 def main(argv=None): 
    parser = optparse.OptionParser(usage='%prog [options]')
    parser.add_option("-n", "--nick", dest="nick", default=False, 
                      help="provides a nickname for the bot")
+   parser.add_option("-w", "--password", dest="password", default=False, 
+                     help="provides a password for NICKSERV identification for the bot")
    parser.add_option("-t", "--test", dest="test", 
                      action="store_true", default=False, 
                      help="enter testing mode")
@@ -261,6 +263,7 @@ def main(argv=None):
    global progdir
 
    nick = options.nick or config.nick
+   password = options.password or config.password
    datadir = options.data or config.datadir
    progdir = config.progdir
 
@@ -301,7 +304,7 @@ def main(argv=None):
    # This bit thanks to Nicolas Mendoza, 2007-05-23
    # Cf. http://utilitybase.com/paste/3519
    while True: 
-      run(config.host, nick, channels, protect)
+      run(config.host, nick, password, channels, protect)
       print >> sys.stderr, 'Disconnected; reconnect in', config.delay, 'secs'
       time.sleep(config.delay)
 
